@@ -1,0 +1,29 @@
+.bold
+{
+    font-weight: bold;
+}
+
+.italic
+{
+    font-style: italic;
+}
+
+.strike
+{
+    text-decoration: line-through;
+}
+
+.left
+{  
+    text-align: left;
+}
+
+.right
+{  
+    text-align: left;
+}
+
+.middle
+{
+    text-align: center;
+}

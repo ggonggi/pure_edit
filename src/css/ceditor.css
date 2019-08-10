@@ -1,0 +1,89 @@
+
+.ceditor-box
+{
+    margin: 0px;
+    padding: 5px;
+    border: 0.1px solid black;
+}
+
+.ceditor-box *:not(.edit-box)
+{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    border: 0.1px solid black;
+    flex-direction: column;
+    height: auto;
+    background: white;
+}
+
+.ceditor-box .toolbox
+{
+    flex-direction: row;
+    padding : 2px;
+}
+
+.ceditor-box .toolbox .group
+{
+    padding-right: 15px;
+    flex-direction: row;
+    flex:0;
+    border:none;
+}
+.ceditor-box .toolbox .group button:first-of-type
+{
+    margin-left: 0px;
+}
+.ceditor-box .toolbox .group button
+{
+    margin-left: 5px;
+    padding: 5px;
+    font-size: 20px;
+    flex:0;
+    outline: none;
+}
+
+.ceditor-box .toolbox .group button
+{
+    color: rgb(8, 8, 8);
+    border: 0.1px solid black;
+}
+
+.ceditor-box .toolbox .group button:hover
+{
+    border: 0.1px solid black;
+    background-color: rgb(224, 224, 224);
+}
+
+.ceditor-box .toolbox .group button.active-color
+{
+    border: 0.1px solid black;
+    background-color: rgb(224, 224, 224);
+}
+
+.color-palette
+{
+    border: none !important;
+}
+
+/*edit content*/
+
+.ceditor-box .edit-box
+{
+    height: 500px;
+    border: 0.1px solid black;
+    padding-left: 10px;
+}
+
+
+.ceditor-box .edit-box *
+{
+    display: block !important;
+    flex-direction: initial !important;
+}
+
+.ceditor-box .edit-box span
+{
+    display: inline !important;
+}
+
