@@ -1,4 +1,5 @@
 import { Context } from "./Context.js";
+import { Selector } from "./Selector.js";
 
 const tools=
 {
@@ -173,45 +174,20 @@ var menu_status=
 
 
 export const Toolbar=(function(){
-
+    let colorPicker_toggle = false;
     const tool_click = function(element, command)
     {
+        element.classList.toggle('active');
         switch(command)
         {
-            case 'palette':
-                show_COLORPICKER();
-            break;
-
-            case 'bold':
-
-            break;
-
-            case 'underline':
-
-            break;
-
-            case 'italic':
-                
-            break;
-
-
-            case 'strike':
-
-            break;
-
-
-            case 'left':
-            
-            break;
-
-            case 'center':
-
-            break;
-
-            case 'right':
-
-            break;
-
+            case 'palette': show_COLORPICKER(); break;
+            case 'bold': setStyle_BOLD(element); break;
+            case 'underline': setStyle_UNDERLINE(element); break;
+            case 'italic': setStyle_ITALIC(element); break;
+            case 'strike': setStyle_Strike(element); break;
+            case 'left': setStyle_LEFT(element); break;
+            case 'center': setStyle_CENTER(element); break;
+            case 'right': setStyle_RIGHT(element); break;
             case 'image':
 
             break;
@@ -237,57 +213,73 @@ export const Toolbar=(function(){
         document.getElementById("color-direction").style.color='#ffffff';
         document.getElementById("color-direction").innerText = color;
         document.getElementById("color-direction").style.backgroundColor = color;
-        console.log(color)
         menu_status.color_selection=color;
+        if ( color != '#000000' )
+            menu_status.menu_selection ^= menu_flag.palette;
+    }
+    const getColor = function()
+    {
+        return menu_status.color_selection;
     }
     const show_COLORPICKER = function()
     {
-        if ( (menu_status.menu_selection&menu_flag.palette) == 0)
-        {
-            document.getElementById('color-picker').style.display='';
-            menu_status.menu_selection|=menu_flag.palette;
-        }
-        else
-        {
-            document.getElementById('color-picker').style.display='none';
-            menu_status.menu_selection^=menu_flag.palette;
-        }
+            if ( colorPicker_toggle )
+            {
+                document.getElementById('color-picker').style.display='none';
+                colorPicker_toggle = false;
+            }
+            else
+            {
+                document.getElementById('color-picker').style.display='';
+                colorPicker_toggle = true;
+     
+            }
     }
-    const setStyle_BOLD = function()
+    const setStyle_BOLD = function(button)
     {
-
+        menu_status.menu_selection ^= menu_flag.bold;
+        var node = document.createElement('span');
+        node.classList.add('bold');
+        node.innerHTML='\u200B';
+        //node.appendChild(br);
+        Selector.getRange().insertNode(node);
+        let range = document.createRange();
+        range.setStart(node,1);
+        range.setEnd(node,1);
+        Selector.setRange(range);
+        //Selector.move();
     }
-    const setStyle_UNDERLINE = function()
+    const setStyle_UNDERLINE = function(button)
     {
-
+        menu_status.menu_selection ^= menu_flag.underline;
     }
-    const setStyle_ITALIC = function()
+    const setStyle_ITALIC = function(button)
     {
-
+        menu_status.menu_selection ^= menu_flag.italic;
     }
-    const setStyle_Strike = function()
+    const setStyle_Strike = function(button)
     {
-
+        menu_status.menu_selection ^= menu_flag.strike;
     }
-    const setStyle_JUSTIFY = function()
+    const setStyle_JUSTIFY = function(button)
     {
-
+        menu_status.menu_selection ^= menu_flag.justify;
     }
-    const setStyle_LEFT = function()
+    const setStyle_LEFT = function(button)
     {
-
+        menu_status.menu_selection ^= menu_flag.left;
     }
-    const setStyle_CENTER = function()
+    const setStyle_CENTER = function(button)
     {
-
+        menu_status.menu_selection ^= menu_flag.center;
     }
-    const setStyle_RIGHT = function()
+    const setStyle_RIGHT = function(button)
     {
-        
+        menu_status.menu_selection ^= menu_flag.right;
     }
     const insert_IMAGE = function()
     {
-
+        
     }
     const insert_YOUTUBE = function()
     {

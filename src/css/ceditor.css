@@ -55,9 +55,10 @@
     background-color: rgb(224, 224, 224);
 }
 
-.ceditor-box .toolbox .group button.active-color
+.ceditor-box .toolbox .group button.active
 {
     border: 0.1px solid black;
+    color: rgb(151, 184, 223);
     background-color: rgb(224, 224, 224);
 }
 
@@ -70,9 +71,9 @@
 
 .ceditor-box .edit-box
 {
-    height: 500px;
     border: 0.1px solid black;
     padding-left: 10px;
+    min-height: 500px;
 }
 
 
@@ -81,8 +82,12 @@
     display: block !important;
     flex-direction: initial !important;
 }
-
 .ceditor-box .edit-box span
+{
+    display: inline !important;
+}
+
+.ceditor-box .edit-box span br
 {
     display: inline !important;
 }

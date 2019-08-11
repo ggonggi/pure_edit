@@ -10,26 +10,48 @@ export const Selector ={
     getRange: function()
     {
         let newRange = document.createRange();
-        this.event();
+
         newRange.setStart(this.start_node, this.start_offset);
         newRange.setEnd(this.end_node,this.end_offset);
+
         return newRange;
+    },
+    setRange: function(range)
+    {
+        let selection = window.getSelection();
+
+        selection.removeAllRanges();
+
+        selection.addRange(range);
+    },
+    move: function()
+    {
+        let selection = window.getSelection();
+
+        selection.removeAllRanges();
+
+        selection.addRange(this.getRange());
     },
     event: function()
     {
         let selection = window.getSelection();
-        if( selection.rangeCount < 1) return;
+        console.log(selection);
+        console.log(this.start_node);
+        console.log(this.start_offset);
+        console.log(this.end_node);
+        console.log(this.end_offset);
+        if( selection.rangeCount < 1  ) return;
 
-         let   range = selection.getRangeAt(0)
-                //console.log(range);
+
+        let   range = selection.getRangeAt(0)
 
         this.start_node = range.startContainer;
         this.end_node = range.endContainer;
         this.start_offset = range.startOffset;
         this.end_offset = range.endOffset;
         this.common_node = range.commonAncestorContainer;
+        this.collasped = range.collasped;
 
-        //console.log(this.getRange());
     },
     addEvent: function(_document)
     {

@@ -1,4 +1,4 @@
-import { Context } from './Context.js'
+import { Context } from './Context.js';
 import { Selector } from './Selector.js';
 
 export const EventHandler = {
@@ -8,16 +8,27 @@ export const EventHandler = {
             for (var element of elements) {
                 if (element.className == 'edit-box')
                     element.addEventListener('keyup', this.keyEvent);
-                    element.addEventListener('input',this.inputEvent);
+                    element.addEventListener('input', this.inputEvent);
                     element.addEventListener('DOMNodeInserted', this.nodeInsertEvent);
             }
         }
     },
-    nodeInsertEvent: function(event) {
-        console.log(Selector.getRange());
-        console.log(event)
+    inputEvent:function(event)
+    {
+        var range = Selector.getRange();
+
+        if ( range.startContainer.nodeName =='SPAN' && range.collapsed == true )
+        {
+            range.startContainer.innerHTML= range.startContainer.innerHTML.replace(/\u200B/g, "");
+            console.log(range.startContainer.innerHTML);
+            Selector.move();
+        }
         
-        if ( !/span/.test(event.target.className) && event.target.nodeType == '1' && event.target.nodeName == 'SPAN' && event.target.parentNode.nodeName == 'P' )
+    },
+    nodeInsertEvent: function(event) {
+
+        console.log(event)
+        if ( event.target.nodeType == '1' && event.target.nodeName == 'SPAN' && event.target.parentNode.nodeName == 'P' && event.target.classList.length == 0 )
         {
             for ( var element of event.target.childNodes )
             {
@@ -27,10 +38,9 @@ export const EventHandler = {
             event.target.parentNode.removeChild(event.target);
         }
     },
-    inputEvent: function (event) {
-        console.log(event)
-    },
     keyEvent: function (event) {
+
+
         switch (event.key) {
             case 'Backspace':
                 var selection = window.getSelection();
