@@ -3,8 +3,6 @@ import { Selector } from "./Selector.js";
 
 const tools=
 {
-    redo:"icon-redo",
-    undo:"icon-undo",
     bold:"icon-bold",
     underline:"icon-underline",
     italic:"icon-italic",
@@ -148,9 +146,9 @@ const color_map=
 '#990000': [-20,126],
 '#800000': [-20,144],
 '#993333': [-20,162],
-}
+};
 
-const menu_flag=
+export const MENU_FLAG=
 {
     palette:Number.parseInt('10000000', 2),
     bold:Number.parseInt('01000000', 2),
@@ -175,6 +173,7 @@ var menu_status=
 
 export const Toolbar=(function(){
     let colorPicker_toggle = false;
+
     const tool_click = function(element, command)
     {
         element.classList.toggle('active');
@@ -189,7 +188,6 @@ export const Toolbar=(function(){
             case 'center': setStyle_CENTER(element); break;
             case 'right': setStyle_RIGHT(element); break;
             case 'image':
-
             break;
 
             case 'youtube':
@@ -215,7 +213,7 @@ export const Toolbar=(function(){
         document.getElementById("color-direction").style.backgroundColor = color;
         menu_status.color_selection=color;
         if ( color != '#000000' )
-            menu_status.menu_selection ^= menu_flag.palette;
+            menu_status.menu_selection ^= MENU_FLAG.palette;
     }
     const getColor = function()
     {
@@ -237,45 +235,36 @@ export const Toolbar=(function(){
     }
     const setStyle_BOLD = function(button)
     {
-        menu_status.menu_selection ^= menu_flag.bold;
-        var node = document.createElement('span');
-        node.classList.add('bold');
-        node.innerHTML='\u200B';
-        //node.appendChild(br);
-        Selector.getRange().insertNode(node);
-        let range = document.createRange();
-        range.setStart(node,1);
-        range.setEnd(node,1);
-        Selector.setRange(range);
-        //Selector.move();
+        menu_status.menu_selection ^= MENU_FLAG.bold;
+        Selector.move();
     }
     const setStyle_UNDERLINE = function(button)
     {
-        menu_status.menu_selection ^= menu_flag.underline;
+        menu_status.menu_selection ^= MENU_FLAG.underline;
     }
     const setStyle_ITALIC = function(button)
     {
-        menu_status.menu_selection ^= menu_flag.italic;
+        menu_status.menu_selection ^= MENU_FLAG.italic;
     }
     const setStyle_Strike = function(button)
     {
-        menu_status.menu_selection ^= menu_flag.strike;
+        menu_status.menu_selection ^= MENU_FLAG.strike;
     }
     const setStyle_JUSTIFY = function(button)
     {
-        menu_status.menu_selection ^= menu_flag.justify;
+        menu_status.menu_selection ^= MENU_FLAG.justify;
     }
     const setStyle_LEFT = function(button)
     {
-        menu_status.menu_selection ^= menu_flag.left;
+        menu_status.menu_selection ^= MENU_FLAG.left;
     }
     const setStyle_CENTER = function(button)
     {
-        menu_status.menu_selection ^= menu_flag.center;
+        menu_status.menu_selection ^= MENU_FLAG.center;
     }
     const setStyle_RIGHT = function(button)
     {
-        menu_status.menu_selection ^= menu_flag.right;
+        menu_status.menu_selection ^= MENU_FLAG.right;
     }
     const insert_IMAGE = function()
     {
@@ -332,6 +321,14 @@ export const Toolbar=(function(){
         getTools:function()
         {
             return _tools;
+        },
+        getSelectedMenu: function()
+        {
+            return menu_status.menu_selection;
+        },
+        setSelectedMenu: function(selectedMenu)
+        {
+            
         }
     };
 })();
